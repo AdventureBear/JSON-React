@@ -1,22 +1,3 @@
-/*jsonUrl = 'http://localhost:3000/js/data.json';*/
-
-var ourData = {
-    "settings" : {
-        "author": "Harry Potter",
-        "location": "UK"
-    },
-    "items": [
-        {
-          "header": "1",
-          "text": "11"
-        },
-        {
-          "header": "2",
-          "text": "22"
-        }
-    ]
-};
-
 var Settings = React.createClass({
     render: function() {
         var author = this.props.data.author,
@@ -43,7 +24,10 @@ var SingleItem = React.createClass({
     }
 });
 
+
 var JsonReactApplication = React.createClass({
+    // this component must know and use JSON's structure
+
     render: function() {
         var settings = this.props.data.settings,
             items = this.props.data.items;
@@ -70,7 +54,66 @@ var JsonReactApplication = React.createClass({
     }
 });
 
-ReactDOM.render(
-    <JsonReactApplication data={ourData} />,
+var renderAll = function (obj) {
+  ReactDOM.render(
+    <JsonReactApplication data={obj} />,
         document.getElementById('root')
     );
+};
+
+
+getObjectFromURL = function (url, callback) {
+    // This function passes data object 
+    // to a given callback function
+    var xhr;
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = function () {
+        // Executed many times, because we can't have HTTP 200 immediately.
+        // that's why we must check everything
+        var status = xhr.status,
+        response = xhr.responseText;
+        newObject = {};
+
+        if (xhr.readyState !== 4) {
+            return false;
+        }
+
+        if (status !== 200) {
+            console.warn('Error, status code: ' + status);
+            return false;
+        }
+        
+        try {
+            var newObject = JSON.parse(response);
+            console.info('We got object!');
+            console.info(newObject);
+            callback(newObject); // callback is executed
+        } catch (err) {
+            console.warn('That\'s not a proper JSON.');
+            console.warn(response);
+        }
+    };
+    // This code will be executed 1 time, 
+    // even before server's response.
+    // That's why we should not return anything
+    xhr.send();
+};
+
+
+
+
+// this works everywhere
+var jsonUrl = 'test/test-data.json';
+
+
+
+// this line works only if i am running App on codekitchen.ru
+// you can chackit on http://codekitchen.ru
+// var jsonUrl = 'http://codekitchen.ru/json-test/real-file.json';
+
+
+// here program actually starts
+getObjectFromURL(jsonUrl, renderAll);
+
