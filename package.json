@@ -1,7 +1,7 @@
 {
-  "name": "XXXXX",
+  "name": "JsonReact",
   "version": "1.0.0",
-  "description": "XXXXXXXXXXXXXXXXX",
+  "description": "JsonReact",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

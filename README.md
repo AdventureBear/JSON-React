@@ -1,17 +1,4 @@
-# Template: React, Gulp, SASS #
-
-### It's a template. It must be edited. ###
-
-- `package.json` name, description
-- `index.html` title
-
-### Also edit later: ###
-- `manifest.json`
-- `browserconfig.xml`
-- `gulpfile.js`
-- `package.json`
-- `app icon`
-- `readme.md`
+# JSON + React #
 
 ## Installing development environment ##
 1. Install **Node.js**
