@@ -1,0 +1,26 @@
+html, body {
+  background-color: #F7F9F9;
+  font-family: sans-serif;
+  line-height: 1em;
+}
+
+section {
+  margin: 0 auto;
+  max-width: 300px;
+  color: #2874A6;
+}
+
+section header {
+  color: #D35400;
+  font-weight: 700;
+}
+
+section em {
+  color: #E67E22;
+}
+
+section ul, section li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

@@ -3,10 +3,7 @@ babel = require('gulp-babel'), // React JSX
 sass = require('gulp-sass'),
 browserSync = require('browser-sync'), 
 del = require('del'), 
-imagemin = require('gulp-imagemin'), // images
 autoprefixer = require('gulp-autoprefixer'); // css prefixes
-
-imagemin.mozjpeg = require('imagemin-mozjpeg'); // jpeg
 
 // DEFAULT
 gulp.task('default', () =>
@@ -72,7 +69,7 @@ gulp.task('browser-sync', () =>
 // And I did it on purpose.
 // In fact it means cleaner build.
 gulp.task('build', 
-    ['build_clean', 'build_img', 'build_jsx', 'build_js', 
+    ['build_clean', 'build_jsx', 'build_js', 
     'build_jslibs', 'build_sass', 'build_others'], () =>
     browserSync({
         server: {
@@ -84,17 +81,6 @@ gulp.task('build',
 
 gulp.task('build_clean', () =>
     del.sync('build')
-    );
-
-gulp.task('build_img', () =>
-    gulp.src('src/img/**/*')
-    .pipe(imagemin([
-        imagemin.gifsicle({interlaced: true}),
-        imagemin.mozjpeg({progressive: true}),
-        imagemin.optipng({optimizationLevel: 5}),
-        imagemin.svgo({plugins: [{removeViewBox: false}]})
-        ]))
-    .pipe(gulp.dest('build/img'))
     );
 
 gulp.task('build_jsx', () =>
@@ -126,6 +112,6 @@ gulp.task('build_sass', () =>
     );
 
 gulp.task('build_others', () =>
-    buildOthers = gulp.src(['src/*.html', 'src/browserconfig.xml', 'src/manifest.json'])
+    buildOthers = gulp.src(['src/*.html', 'src/**/test-data.json'])
     .pipe(gulp.dest('build'))
     );
